@@ -19,15 +19,11 @@
             </nav>
         </div>
        
-
-       
         <div class="flex flex-col gap-10">
          
             <div class="rounded-sm border border-stroke bg-white shadow-default dark:border-strokedark dark:bg-boxdark">
                 <div class="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-1 flex items-center">
-                        <p class="font-medium">ID</p>
-                    </div>
+                   
                     <div class="col-span-2 flex items-center">
                         <p class="font-medium">Movie</p>
                     </div>
@@ -47,32 +43,28 @@
 
                 @foreach ($reviews as $review)
                 <div class="grid grid-cols-6 border-t border-stroke px-4 py-4.5 dark:border-strokedark sm:grid-cols-8 md:px-6 2xl:px-7.5">
-                    <div class="col-span-1 flex items-center">
-                        <p class="text-sm font-medium text-black dark:text-white">
-                            {{ $review['id'] }}
-                        </p>
-                    </div>
+                   
                     
                     <div class="col-span-2 flex items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            {{ $review['movie'] }}
+                        {{ $review->movie->title }}
                         </p>
                     </div>
-                    
+                     
                     <div class="col-span-1 items-center sm:flex">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            {{ $review['user'] }}
+                            {{ $review->user }}
                         </p>
                     </div>
                     
                     <div class="col-span-2 flex items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            {{ $review['rating'] }}
+                            {{ $review->rating }}
                         </p>
                     </div>
                     <div class="col-span-1 flex items-center">
                         <p class="text-sm font-medium text-black dark:text-white">
-                            {{ $review['date'] }}
+                            {{ $review->date }}
                         </p>
                     </div>
                     
