@@ -17,7 +17,7 @@ class GenreController extends Controller
     public function create()
     {
         
-        return view('genres.create', );
+        return view('genres.create');
     }
 
     public function store(Request $request)
@@ -33,9 +33,9 @@ class GenreController extends Controller
     return redirect('/genres')->with('success', 'Movie added successfully!');
 }
 
-public function destroy(Destroy $destroy)
+public function destroy(Genre $genre)
 {
-    $movie->delete();
+    $genre->delete();
     return redirect('/genres')->with('success', 'Movie deleted successfully!');
 }
 
