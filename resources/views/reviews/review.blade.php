@@ -102,7 +102,7 @@
                     </div>
                     
                     <div class="flex items-center space-x-1">
-        <a href="" class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Edit</a>
+        <a href="/reviews/{{ $review->id }}/edit" class="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">Edit</a>
         <form action="/reviews/{{ $review->id }}" method="POST">
             @csrf
             @method('DELETE')
