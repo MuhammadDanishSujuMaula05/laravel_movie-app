@@ -3,6 +3,8 @@ namespace App\Http\Controllers;
 use App\Models\Genre;
 use App\Models\Movie;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
 
 class MovieController extends Controller
 {
@@ -23,9 +25,17 @@ public function store(Request $request)
     $validatedData = $request->validate([
         'title' => 'required',
         'genre_id' => 'required',
-        'poster' => 'required',
+        'poster' => 'required|image',
         'synopsis' => 'required',
     ]);
+
+if ($request->hasFile('poster')){
+
+    $imageName = time() .'.'. $request -> file('poster') -> getClientOriginalExtension();
+    $request->file('poster') -> storeAs('src/images/movie', $imageName, 'public');
+    $validatedData['poster'] = $imageName;
+
+}
 
     Movie::create($validatedData);
 
@@ -45,9 +55,19 @@ public function update(Request $request, Movie $movie)
     $validatedData = $request->validate([
         'title' => 'required',
         'genre_id' => 'required',
-        'poster' => 'required',
+        'poster' => 'nullable|image',
         'synopsis' => 'required',
     ]);
+
+
+    if ($request->hasFile('poster')){
+
+ storage::disk('public')->delete('src/images/movie') . $movie->poster;
+ $imageName = time() .'.'. $request -> file('poster') -> getClientOriginalExtension();
+    $request->file('poster') -> storeAs('src/images/movie', $imageName, 'public');
+    $validatedData['poster'] = $imageName;
+    }
+
 
     $movie->update($validatedData);
 
@@ -56,7 +76,8 @@ public function update(Request $request, Movie $movie)
 
 public function destroy(Movie $movie)
 {
-    $movie->delete();
+    $poster = storage::disk('public')->delete('src/images/movie/') . $movie->poster;
+    $movie->delete($poster);
     return redirect('/movies')->with('success', 'Movie deleted successfully!');
 }
 }
